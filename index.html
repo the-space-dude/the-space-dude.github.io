@@ -15,10 +15,21 @@
         font-family: "Helvetica", sans-serif;
         margin: 0px;
         padding: 10px;
+        padding-bottom: 40px;
       }
-      a {
+      #yt {
         text-decoration: none;
         color: rgb(0, 0, 255);
+      }
+      .links {
+        position: relative;
+        font-family: "Helvetica", sans-serif;
+        font-size: 20px;
+        color: rgb(255, 255, 255);
+        text-decoration: none;
+        bottom: 50px;
+        left: 10px;
+        margin: 0px;
       }
       #advertisement {
         font-style: italic;
@@ -50,10 +61,11 @@
   </head>
   <body>
     <h1>The Space Dude</h1>
-    <p id="advertisement">Subscribe to my <a target="_blank" href="https://www.youtube.com/channel/UCEXZXSniEFitfeLOO3HvecQ">YouTube channel</a> for more content from me</p>
+    <p><a class="links" href=".news">Recent News</a></p>
+    <p id="advertisement">Subscribe to my <a id="yt" target="_blank" href="https://www.youtube.com/channel/UCEXZXSniEFitfeLOO3HvecQ">YouTube channel</a> for more content from me</p>
     <img id="home-img" src="https://spacenews.com/wp-content/uploads/2019/06/30934147078_d3fc6602fb_k.jpg" alt="Starship flying through the clouds" width="100%" height="100%">
     <div class="content">
-      <h2 id="heading">Recent News</h2>
+      <h2 class="heading news">Recent News</h2>
       <p>Story not currently available. This website is still new and under development.</p>
     </div>
   </body>
