@@ -1,63 +1,33 @@
-<!-Hi! I see you made it to the code for this website! Feel free to look around!->
+<!-Hello! I see you made it to this website's code. Feel free to look around!->
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
     <title>The Space Dude</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
     <style>
-      body {
-        background-color: rgb(200, 200, 200);
-      }
-      h1 {
-        background-color: rgb(0, 0, 0);
-        color: rgb(255, 255, 255);
-        font-size: 75px;
-        font-weight: bold;
-        font-family: "Helvetica", sans-serif;
-        margin: 0px;
-        padding: 10px;
-        padding-bottom: 40px;
-      }
       .yt {
         text-decoration: none;
         color: rgb(0, 0, 255);
       }
-      .links {
-        position: relative;
-        font-family: "Helvetica", sans-serif;
-        font-size: 15px;
-        color: rgb(255, 255, 255);
-        text-decoration: none;
-        bottom: 50px;
-        left: 10px;
-        margin: 0px;
-      }
       #advertisement {
         font-style: italic;
         position: relative;
-        bottom: 20px;
+        bottom: 10px;
         color: rgb(255, 255, 255);
         z-index: 1;
         margin-left: 10px;
-      }
-      #home-img {
-        position: relative;
-        bottom: 60px;
       }
       .content {
         background-color: rgb(50, 50, 50);
         color: rgb(255, 255, 255);
         padding-left: 10px;
         position: relative;
-        padding-bottom: 10px;
+        padding-bottom: 20px;
         padding-right: 10px;
         font-family: "Courier", monospace;
         font-weight: bold;
-      }
-      
-      .heading {
-        font-family: "Helvetica", sans-serif;"
-        font-size: 30px;
+        line-height: 2em;
       }
       #note {
         color: rgb(255, 255, 255);
@@ -67,7 +37,7 @@
       }
       #major-event {
         width: 50%;
-        height: 75px;
+        height: 90px;
         overflow: auto;
         margin-top: 20px;
       }
@@ -75,20 +45,84 @@
         float: right;
         position: relative;
         width: 40%;
-        bottom: 85px;
-        height: 75px;
+        bottom: 110px;
+        height: 90px;
         overflow: auto;
       }
     </style>
   </head>
   <body>
     <h1>The Space Dude</h1>
-    <p><a href="#news" class="links">Recent News |</a><a href="#sneak-peak" class="links"> Sneak Peaks |</a><a href="#event" class="links"> Major Events |</a><a href="#about-us" class="links"> About Us</a></p>
+    <p><a href="#news" class="links">Recent News |</a><a href="#challenge" class="links"> Monthly Challenge |</a><a href="#sneak-peak" class="links"> Sneak Peaks |</a><a href="#event" class="links"> Major Events |</a><a href="#about-us" class="links"> About Us</a></p>
     <p id="advertisement">Subscribe to my <a class="yt" target="_blank" href="https://www.youtube.com/channel/UCEXZXSniEFitfeLOO3HvecQ">YouTube channel</a> for more content from me</p>
     <img id="home-img" src="https://spacenews.com/wp-content/uploads/2019/06/30934147078_d3fc6602fb_k.jpg" alt="Starship flying through the clouds" width="100%" height="100%">
-    <div class="content">
+    <div id="challenge" class="content">
       <h2 id="news" class="heading">Recent News</h2>
       <p class="content">Story not currently available. This website is still new and under development.</p>
+    </div>
+    <div id="challenge" class="content">
+      <h2>Monthly KSP Challenge</h2>
+      <p>Objective: Land on the Mun Apollo Style<br>
+      Deadline: June 30, 2024, 11:59 P.M.<br>
+      Budget: Unlimited<br>
+      Reward: Jeb gets to stay alive</p>
+      <p>Complete the following steps for completion</p>
+      <ol>
+        <li>
+          Achieve LKO (Low Kerbin Orbit)<br>
+          <em>
+            Ap: 100 km<br>
+            Pe: 100 km<br>
+            Inclination: 0 degrees
+          </em>
+        </li>
+        <li>
+          Complete TMI (Trans Munar Injection) and Extract MM (Munar Module)<br>
+          <em>
+            Phase angle: ~45 degrees
+          </em>
+        </li>
+        <li>
+          Complete MOI (Munar Obit Insertion)<br>
+          <em>
+            Ap: 100 km<br>
+            Pe: 100 km<br>
+            Inclination: 180 degrees
+          </em>
+        </li>
+        <li>
+          Eject MM and Lower Pe<br>
+          <em>
+            Ap: 100 km<br>
+            Pe: 10 km
+          </em>
+        </li>
+        <li>
+          Land<br>
+          <em>
+            Location: Somewhere flat on the Mun
+          </em>
+        </li>
+        <li>
+          Achieve Munar Orbit<br>
+          <em>
+            Ap: 50 km<br>
+            Pe: 50 km
+          </em>
+        </li>
+        <li>
+          Dock with CM (Command Module)
+        </li>
+        <li>
+          Eject MM and complete TKI (Trans Kerbin Injection)
+        </li>
+        <li>
+          Guided ELD and Splashdown<br>
+          <em>
+            Location: Anywhere in Kerbin's Oceans
+          </em>
+        </li>
+      </ol>
     </div>
     <div class="content">
       <h2 id="sneak-peak" class="heading">Sneak Peak at my next YouTube Video</h2>
