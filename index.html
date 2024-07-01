@@ -1,4 +1,4 @@
-<!-Hello! I see you made it to this website's code. Feel free to look around!->
+<!-index html->
 <!DOCTYPE html>
 <html>
   <head>
@@ -6,9 +6,9 @@
     <title>The Space Dude</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <style>
-      .yt {
-        text-decoration: none;
-        color: rgb(0, 0, 255);
+      #home-img {
+        position: relative;
+        bottom: 60px;
       }
       #advertisement {
         font-style: italic;
@@ -18,143 +18,18 @@
         z-index: 1;
         margin-left: 10px;
       }
-      #note {
-        color: rgb(255, 255, 255);
-        font-family: "Helvetica", sans-serif;
-        font-size: 10px;
-        font-style: italic;
-      }
-      #major-event {
-        width: 50%;
-        height: 100px;
-        overflow: auto;
-        margin-top: 20px;
-      }
       #about-us {
-        float: right;
         position: relative;
-        width: 40%;
-        bottom: 120px;
         height: 100px;
         overflow: auto;
-      }
-      .next-flight {
-        border: 1px dotted white;
-        padding-left: 10px;
-        padding-bottom: 5px;
       }
     </style>
   </head>
   <body>
     <h1>The Space Dude</h1>
-    <p><a href="https://the-space-dude.github.io/news" class="links">Recent News |</a><a href="#challenge" class="links"> Monthly Challenge |</a><a href="#sneak-peak" class="links"> Sneak Peaks |</a><a href="#event" class="links"> Major Events |</a><a href="#about-us" class="links"> About Us</a></p>
+    <p><a href="news.html" class="links">Recent News |</a><a href="challenge.html" class="links"> Monthly Challenge |</a><a href="youtube.html" class="links"> Sneak Peaks |</a><a href="news.html" class="links"> Major Events |</a><a href="#about-us" class="links"> About Us</a></p>
     <p id="advertisement">Subscribe to my <a class="yt" target="_blank" href="https://www.youtube.com/channel/UCEXZXSniEFitfeLOO3HvecQ">YouTube channel</a> for more content from me</p>
-    <img class="home-img" src="https://spacenews.com/wp-content/uploads/2019/06/30934147078_d3fc6602fb_k.jpg" alt="Starship flying through the clouds" width="100%" height="100%">
-    <div id="challenge" class="content">
-      <h2 class="heading">Monthly KSP Challenge</h2>
-      <p>
-        Objective: Land on the Mun Apollo Style<br>
-        Deadline: July 30, 2024, 11:59 P.M.<br>
-        Budget: Unlimited<br>
-        Reward: Jeb gets to stay alive
-      </p>
-      <div class="content">
-      <p>
-        Complete the following steps for completion
-      </p>
-      <ol>
-        <li>
-          Achieve LKO (Low Kerbin Orbit)<br>
-          <em>
-            Ap: 100 km<br>
-            Pe: 100 km<br>
-            Inclination: 0 degrees
-          </em>
-        </li>
-        <li>
-          Complete TMI (Trans Munar Injection) and Extract MM (Munar Module)<br>
-          <em>
-            Phase angle: ~45 degrees
-          </em>
-        </li>
-        <li>
-          Complete MOI (Munar Obit Insertion)<br>
-          <em>
-            Ap: 100 km<br>
-            Pe: 100 km<br>
-            Inclination: 180 degrees
-          </em>
-        </li>
-        <li>
-          Eject MM and Lower Pe<br>
-          <em>
-            Ap: 100 km<br>
-            Pe: 10 km
-          </em>
-        </li>
-        <li>
-          Land<br>
-          <em>
-            Location: Somewhere flat on the Mun
-          </em>
-        </li>
-        <li>
-          Achieve Munar Orbit<br>
-          <em>
-            Ap: 50 km<br>
-            Pe: 50 km
-          </em>
-        </li>
-        <li>
-          Dock with CM (Command Module)
-        </li>
-        <li>
-          Eject MM and complete TKI (Trans Kerbin Injection)
-        </li>
-        <li>
-          Guided EDL and Splashdown<br>
-          <em>
-            Location: Anywhere in Kerbin's Oceans
-          </em>
-        </li>
-      </ol>
-      </div>
-    </div>
-    <div class="content">
-      <h2 id="sneak-peak" class="heading">Sneak Peak at my next YouTube Video</h2>
-      <p id="note">Note: The following data is subject to change and is sometimes inaccurate.</p>
-      <table class="content">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Content</th>
-            <th>Date of Release</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Sending an SSTO to the Mun!!!</td>
-            <td>Sending four Kerbals to the Mun with SSTO, a lander, a fuel station, a probe that captures an asteriod and impacts it to the Mun, a Mun base, a rover, and a system of relays that allows 24/7 communication.</td>
-            <td>Most likely Friday, July 26, 2024, 3:00 P.M.</td>
-          </tr>
-          <tr>
-            <td>Undetermined</td>
-            <td>Undetermined</td>
-            <td>Undetermined</td>
-          </tr>
-          <tr>
-            <td>Undetermined</td>
-            <td>Undetermined</td>
-            <td>Undetermined</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div id="major-event" class="content">
-      <h2 id="event" class="heading">Next Major Event</h2>
-      <h3 class="next-flight" class="content">Unknown</h3>
-      <p class="content">Details not avaiable.</p>
-    </div>
+    <img id="home-img" src="https://spacenews.com/wp-content/uploads/2019/06/30934147078_d3fc6602fb_k.jpg" alt="Starship flying through the clouds" width="100%" height="100%">
     <div id="about-us" class="content">
       <h2 class="heading">About Us</h2>
       <p class="content">Hello! I am a YouTube content creator who dreams of telling the world about rocketry. I hope to be a rocket engineer when I grow up. Please support me by subscribing to my <a class="yt" target="_blank" href="https://www.youtube.com/channel/UCEXZXSniEFitfeLOO3HvecQ">channel!</a></p>
