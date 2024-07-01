@@ -11,10 +11,6 @@ h1 {
 body {
   background-color: rgb(150, 150, 150);
 }
-#home-img {
-  position: relative;
-  bottom: 60px;
-}
 .links {
   position: relative;
   font-family: "Helvetica", sans-serif;
@@ -42,4 +38,8 @@ a:hover, a:active, a:focus {
   font-family: "Courier", monospace;
   font-weight: bold;
   line-height: 2em;
+}
+.home-img {
+  position: relative;
+  bottom: 60px;
 }
