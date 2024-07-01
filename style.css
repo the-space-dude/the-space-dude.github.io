@@ -43,3 +43,16 @@ a:hover, a:active, a:focus {
   position: relative;
   bottom: 60px;
 }
+.yt {
+  text-decoration: none;
+  color: rgb(0, 0, 255);
+}
+.next-flight {
+  border: 1px dotted white;
+  padding-left: 10px;
+  padding-bottom: 5px;
+}
+.imgs {
+  position: relative;
+  bottom: 25px;
+}
