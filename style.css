@@ -2,7 +2,7 @@ body {
   background-color: rgb(150, 150, 150);
 }
 
-#heading {
+.heading {
   background-color: black;
   font-family: "Helvetica", sans-serif;
   padding: 10px;
@@ -15,7 +15,7 @@ h1 {
   color: white;
 }
 
-#links-bar {
+.links-bar {
   color: white;
 }
 
@@ -49,7 +49,7 @@ h1 {
   padding: 10px;
 }
 
-.content-heading {
+h2 {
   margin: 0px;
   font-family: "Helvetica", sans-serif;
   font-size: 30px;
@@ -57,4 +57,14 @@ h1 {
 
 button {
   border: 1px solid black;
+}
+
+button:hover, button:active, button:focus {
+  background-color: rgb(200, 200, 200);
+}
+
+.details {
+  float: right;
+  position: relative;
+  bottom: 27px;
 }
