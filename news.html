@@ -1,45 +1,65 @@
-<!-news html->
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Recent Space News</title>
+    <title>Recent News</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <style>
-      #major-event {
+      .indent {
+        margin-left: 20px;
+      }
+      h3 {
+        padding: 5px;
+        border: 2px dotted white;
+      }
+      #major-flight {
         height: 100px;
         overflow: auto;
-        margin-top: 20px;
-      }
-      .next-flight {
-        border: 1px dotted white;
-        padding-left: 10px;
-        padding-bottom: 5px;
       }
     </style>
   </head>
   <body>
-    <h1>The Space Dude</h1>
-    <p><a href="index.html" class="links">Back to Home Page</a></p>
-    <img class="imgs" src="https://spacenews.com/wp-content/uploads/2019/06/30934147078_d3fc6602fb_k.jpg" alt="Starship flying through the clouds" width="100%" height="100%">
-    <div id="major-events" class="content">
-      <h2 class="heading">Recent News</h2>
-      <ul>
+    <div class="heading">
+      <h1>The Space Dude</h1>
+      <p class="links-bar">
+        <a class="links" href="index.html">Back to Home Page</a>
+      </p>
+    </div>
+    <img class="home-img" src="https://spacenews.com/wp-content/uploads/2019/06/30934147078_d3fc6602fb_k.jpg" alt="Starship Flying Through the Clouds" width="100%" height="100%">
+    <div class="content">
+      <h2>Recent News</h2>
+      <button class="details" id="news-button-1">Hide Details</button>
+      <ul class="indent" id="news">
         <li>
-          <h3 class="next-flight">
-            SpaceX First Falcon 9 Failure in 8 Years
-          </h3>
-          <p>
-            SpaceX attempted to launched 20 starlink satelites into orbit, but during its second stage burn, the engine failured to complete the burn. Because of this, the satelites were placed at a low perigee of 135 km. This is enough to slow the satelites to reentry. The FAA grounded SpaceX to any launches unless they figure out the cause for this failure.
-          </p>
-          <p>Source: <a class="yt" href="https://www.spacex.com/launches/mission/?missionId=sl-9-3">SpaceX</a></p>
+          <h3>Falcon 9 Returns to Flight!</h3>
+          <p>After 8 years of no major issues, SpaceX suddenly had an engine failure that led 20 Starlink satellites into a high-drag orbit. The FAA grounded SpaceX to anymore space flights until the problem is fixed. After a few days of investigation, SpaceX claimed that the cause of the engine failure was an oxygen leak that tore through the engine's insulation layer. Review to footage, it was clear this was the case.</p>
+          <p>Source: <a target="_blank" class="highlighted-links" href="https://www.spacex.com/updates/">SpaceX Updates</a></p>
         </li>
       </ul>
     </div>
-    <div id="major-event" class="content">
-      <h2 id="event" class="heading">Next Major Event</h2>
-      <h3 class="next-flight" class="content">Unknown</h3>
-      <p class="content">Details not avaiable.</p>
+    <div class="content" id="major-flight">
+      <h2>Next Major Flight</h2>
+      <h3>Starship Test 5 (IFT-5)</h3>
+      <p>After SpaceX had proven they could land the Super Heavy, they decided to take a huge step forward with flight 5. They will attempt a Super Heavy chopstick midair catch. This is risky because not only are they endangering flight hardware, but ground hardware too. To minimize ground hardware damage, they will first target a spot near the pad, and then pilot the booster to the chopstick arms.</p>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+      $(".heading").hide();
+      $(".links-bar").hide();
+      $(".home-img").hide();
+      $(".heading").slideDown(500, function() {
+        $(".links-bar").fadeIn(500);
+      });
+      $(".home-img").fadeIn(1000);
+      $("#news-button-1").on("click", function() {
+        $("#news").slideToggle(500);
+        if (this.textContent === "Hide Details") {
+          this.innerHTML = "Show Details";
+        } else {
+          this.innerHTML = "Hide Details";
+        }
+      });
+    </script>
   </body>
 </html>
+
