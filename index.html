@@ -12,18 +12,12 @@
         position: absolute;
         top: 130px;
       }
-  
-      .details {
-        float: right;
-        position: relative;
-        bottom: 27px;
-      }
     </style>
   </head>
   <body>
-    <div id="heading">
+    <div class="heading">
       <h1>The Space Dude</h1>
-      <p id="links-bar">
+      <p class="links-bar">
         <a href="news.html" class="links">Recent News</a>
         |
         <a href="challenges.html" class="links">Monthly Challenges</a>
@@ -39,9 +33,9 @@
     <img class="home-img" src="https://spacenews.com/wp-content/uploads/2019/06/30934147078_d3fc6602fb_k.jpg"
       alt="Starship Flying Through the Clouds" width="100%" height="100%">
     <div class="content">
-      <h2 class="content-heading">Recent News</h2>
+      <h2>Recent News</h2>
       <button class="details" id="news-button">Show Details</button>
-      <p class="content" id="news">
+      <p id="news">
         The <em>Recent News</em> page describes any space-related news that is happening or has recently occurred.<br>
         To explore this page click <strong>explore</strong>.<br><br>
         <a href="news.html">
@@ -50,9 +44,9 @@
       </p>
     </div>
     <div class="content">
-      <h2 class="content-heading">Monthly KSP Challenges</h2>
+      <h2>Monthly KSP Challenges</h2>
       <button class="details" id="challenges-button">Show Details</button>
-      <p class="content" id="challenges">
+      <p id="challenges">
         The <em>Monthly KSP Challenges</em> page is a KSP challenge you must complete before the deadline. It includes a
         step-by-step guide on how to complete the challenge. A new challenge will appear every month.<br>
         To explore this page click <strong>explore</strong>.<br><br>
@@ -62,9 +56,9 @@
       </p>
     </div>
     <div class="content">
-      <h2 class="content-heading">Games & Simulations</h2>
+      <h2>Games & Simulations</h2>
       <button class="details" id="sim-button">Show Details</button>
-      <p class="content" id="sim">
+      <p id="sim">
         The <em>Games & Simulations</em> page includes various games that simulate different space-related scenarios.
         Currently, there is only one game available, but I will add more in the future.<br>
         To explore this page click <strong>explore</strong>.<br><br>
@@ -74,9 +68,9 @@
       </p>
     </div>
     <div class="content">
-      <h2 class="content-heading">YouTube Channel Updates</h2>
+      <h2>YouTube Channel Updates</h2>
       <button class="details" id="video-button">Show Details</button>
-      <p class="content" id="videos">
+      <p id="videos">
         The <em>YouTube Channel Updates</em> page is exactly what it sounds like it is: Channel Updates. It also includes a chart of my next three planned videos and their details.<br>
         To explore this page click <strong>explore</strong>.<br><br>
         <a href="videos.html">
@@ -85,27 +79,27 @@
       </p>
     </div>
     <div class="content" style="margin-top: 50px" id="about-us">
-      <h2 class="content-heading">About Us</h2>
+      <h2>About Us</h2>
       <button class="details" id="about-button">Hide Details</button>
-      <p class="content" id="about">
+      <p id="about">
         Hello! I am The Space Dude, a YouTuber and KSP and rocketry enthusiast. My goal is to inspire and share my knowledge of rocketry with others. If you like my content, please consider subscribing to <a class="highlighted-links" target="_blank" href="https://www.youtube.com/channel/UCEXZXSniEFitfeLOO3HvecQ">YouTube Channel</a>.
       </p>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
-      $("#heading").hide();
-      $("#links-bar").hide();
+      $(".heading").hide();
+      $(".links-bar").hide();
       $(".home-img").hide();
       $("#more-content").hide();
       $("#news").hide();
       $("#challenges").hide();
       $("#sim").hide();
       $("#videos").hide();
-      $("#heading").slideDown(500, function () {
-        $("#links-bar").fadeIn(500);
+      $(".heading").slideDown(500, function () {
+        $(".links-bar").fadeIn(500);
       });
-      $(".home-img").fadeIn(500, function () {
-        $("#more-content").show();
+      $(".home-img").fadeIn(1000, function () {
+        $("#more-content").slideDown(100);
       });
       $("#news-button").on("click", function () {
         $("#news").slideToggle(500);
