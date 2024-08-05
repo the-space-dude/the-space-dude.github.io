@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Games & Simulations</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+      canvas {
+        border: 5px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <div style="margin-bottom: 20px" class="heading">
+      <h1>The Space Dude</h1>
+      <p class="links-bar">
+        <a class="links" href="index.html">Back to Home Page</a>
+      </p>
+    </div>
+    <div class="content">
+      <h2>Super Heavy Chopstick Catch Simulation</h2>
+      <button class="details" id="chopstick-catch">Show Game</button>
+      <div id="chopstick-catch-game">
+        <p>Inspired by the IFT-5 flight plan, this game simulates the Super Heavy booster catch.</p>
+        <canvas id="catch-sim"></canvas>
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+      $(".heading").hide();
+      $(".links-bar").hide();
+      $(".content").hide();
+      $("#chopstick-catch-game").hide();
+      $(".heading").slideDown(500, function() {
+        $(".links-bar").fadeIn(500);
+      });
+      $(".content").fadeIn(1000);
+      $("#chopstick-catch").on("click", function() {
+        $("#chopstick-catch-game").slideToggle(1000);
+        if (this.textContent === "Show Game") {
+          this.innerHTML = "Hide Game";
+        } else {
+          this.innerHTML = "Show Game"
+        }
+      });
+    </script>
+    <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script>
+    <script>
+      var programCode = function(processingInstance) {
+        with (processingInstance) {
+          size(1000, 600);
+          frameRate(60);
+          var Particle = function(position) {
+            this.acceleration = new PVector(0, 1);
+            this.velocity = new PVector(random(-0.2, 0.2), 3);
+            this.position = position.get();
+            this.timeToLive = 255;
+          };
+          var ParticleSystem = function(position) {
+            this.origin = position.get();
+            this.particles = [];
+          };
+          var Button = function(x, y, width, height, message, textSize) {
+            this.x = x;
+            this.y = y;
+            this.width = width;
+            this.height = height;
+            this.message = message;
+            this.textSize = textSize;
+          };
+          var Force = function() {
+            this.c = 0.001;
+          };
+          var Booster = function(x, y, width, height, angle) {
+            this.position = new PVector(x, y);
+            this.velocity = new PVector(-1.5, 7.5);
+            this.acceleration = new PVector(0, 0);
+            this.angle = angle;
+            this.aVelocity = 0;
+            this.aAcceleration = 0;
+            this.mass = 10;
+            this.width = width;
+            this.height = height;
+          };
+          Particle.prototype.run = function() {
+            this.update();
+            this.display();
+          };
+          Particle.prototype.update = function() {
+            this.velocity.add(this.acceleration);
+            this.position.add(this.velocity);
+            this.acceleration.mult(0);
+            this.timeToLive -= 3;
+          };
+          Particle.prototype.display = function() {
+            fill(0, 150, 255, this.timeToLive - 55);
+            ellipse(this.position.x, this.position.y, 5, 5);
+          };
+          Particle.prototype.isDead = function() {
+            return this.timeToLive < 55;
+          };
+          ParticleSystem.prototype.addParticle = function() {
+            this.particles.push(new Particle(this.origin));
+          };
+          ParticleSystem.prototype.run = function() {
+            for (var i = this.particles.length - 1; i >= 0; i--) {
+              var p = this.particles[i];
+              p.run();
+              if (p.isDead()) {
+                this.particles.splice(i, 1);
+              }
+            }        
+          };
+          Button.prototype.draw = function() {
+            fill(255, 255, 0);
+            strokeWeight(3);
+            stroke(255, 200, 0);
+            rectMode(CENTER);
+            textAlign(CENTER, CENTER);
+            textSize(this.textSize);
+            rect(this.x, this.y, this.width, this.height, 20);
+            fill(0, 0, 0);
+            text(this.message, this.x, this.y);
+          };
+          Button.prototype.mouseOver = function() {
+            return mouseX > this.x - this.width / 2 && mouseX < this.x + this.width / 2 && mouseY > this.y - this.height / 2 && mouseY < this.y + this.height / 2;
+          };
+          Force.prototype.gravity = function(m) {
+            return new PVector(0, m.mass / 10);
+          };
+          Force.prototype.drag = function(m) {
+            var speed = m.velocity.mag();
+            var dragMag = this.c * speed * speed * 10;
+            var dragForce = m.velocity.get();
+            dragForce.mult(-1);
+            dragForce.normalize();
+            dragForce.mult(dragMag);
+            return dragForce;
+          };
+          Force.prototype.thrust = function(m) {
+            var force = new PVector(0, -1.5);
+            force.rotate(m.angle);
+            return force;
+          };
+          Booster.prototype.display = function() {
+            pushMatrix();
+            translate(this.position.x, this.position.y);
+            rotate(this.angle);
+            noStroke();
+            fill(100, 100, 100);
+            rectMode(CENTER);
+            rect(0, 0, this.width, this.height);
+            fill(0, 0, 0);
+            rect(0, this.height * 13 / 25, this.width, this.height / 25);
+            rect(-this.width * 2 / 3, -this.height * 2 / 5, this.width / 2, this.height / 40);
+            rect(0, -this.height * 2 / 5, this.width / 2, this.height / 40);
+            rect(this.width * 2 / 3, -this.height * 2 / 5, this.width / 2, this.height / 40);
+            popMatrix();
+          };
+          Booster.prototype.pitchRight = function() {
+            this.aAcceleration = 0.002;
+          };
+          Booster.prototype.pitchLeft = function() {
+            this.aAcceleration = -0.002;
+          };
+          Booster.prototype.update = function() {
+            this.velocity.add(this.acceleration);
+            this.position.add(this.velocity);
+            this.acceleration.mult(0);
+            this.aVelocity += this.aAcceleration;
+            this.angle += this.aVelocity;
+            this.aAcceleration = 0;
+          };
+          Booster.prototype.checkEdges = function() {
+            return this.position.x < 0 || this.position.x > width || this.position.y > height;
+          };
+          Booster.prototype.checkCaptured = function() {
+            return this.position.x - this.width / 2 > 110 && this.position.x + this.width / 2 < 160 && this.position.y - this.height / 2 > 375 && this.position.y + this.height / 2 < 500 && this.angle > -0.2 && this.angle < 0.2 && this.velocity.x < 2 && this.velocity.x > -0.2 && this.velocity.y < 2 && this.velocity.y > -0.2;
+          };
+          Booster.prototype.applyForce = function(force) {
+            var f = PVector.div(force, this.mass);
+            this.acceleration.add(f);
+          };
+          var playButton = new Button(500, 525, 200, 100, "Play!", 50);
+          var mobileButton = new Button(800, 400, 300, 75, "Mobile: Off", 45);
+          var exitButton = new Button(50, 50, 75, 75, "Exit", 30);
+          var turnRightButton = new Button(500, 525, 75, 75, "Right", 30);
+          var turnLeftButton = new Button(600, 525, 75, 75, "Left", 30);
+          var thrustButton = new Button(550, 425, 75, 75, "Thrust", 25);
+          var tryAgainButton = new Button(500, 350, 300, 75, "Try Again", 45);
+          var quitButton = new Button(500, 450, 300, 75, "Quit", 45);
+          var playAgainButton = new Button(500, 350, 300, 75, "Play Again", 45);
+          var homeButton = new Button(500, 450, 300, 75, "Home", 45);
+          var intructionsButton = new Button(200, 400, 300, 75, "Instructions", 45);
+          var backButton = new Button(500, 450, 300, 75, "Back", 45);
+          var homeRocket = new Booster(0, 0, 30, 200, 0);
+          var superHeavy = new Booster(750, 0, 15, 100, 0.2);
+          var forces = new Force();
+          var exhaust = new ParticleSystem(new PVector(0, 50));
+          var currentScene;
+          var resetSuperHeavy = function() {
+            superHeavy.position.set(750, 0);
+            superHeavy.velocity.set(-1.5, 7.5);
+            superHeavy.angle = 0.2;
+            superHeavy.aVelocity = 0;
+            superHeavy.mass = 10;
+            cloudX1 = random(width);
+            cloudX2 = random(width);
+            cloudX3 = random(width);
+          };
+          var cloudX1 = random(width);
+          var cloudX2 = random(width);
+          var cloudX3 = random(width);
+          var keys = [];
+          keyPressed = function() {
+            if (mobileButton.message === "Mobile: Off") {
+              keys[keyCode] = true;
+            }
+          };
+          keyReleased = function() {
+            if (mobileButton.message === "Mobile: Off") {
+              keys[keyCode] = false;
+            }
+          };
+          mousePressed = function() {
+            if (mobileButton.message === "Mobile: On") {
+              if (turnRightButton.mouseOver()) {
+                keys[RIGHT] = true;
+              }
+              if (turnLeftButton.mouseOver()) {
+                keys[LEFT] = true;
+              }
+              if (thrustButton.mouseOver()) {
+                keys[UP] = true;
+              }
+            }
+          };
+          mouseReleased = function() {
+            if (mobileButton.message === "Mobile: On") {
+              if (turnRightButton.mouseOver()) {
+                keys[RIGHT] = false;
+              }
+              if (turnLeftButton.mouseOver()) {
+                keys[LEFT] = false;
+              }
+              if (thrustButton.mouseOver()) {
+                keys[UP] = false;
+              }
+            }
+          };
+          var scene1 = function() {
+            currentScene = 1;
+            background(0, 200, 255);
+            textAlign(CENTER, CENTER);
+            textSize(60);
+            fill(0, 0, 0);
+            text("Catch the SpaceX\nSuper Heavy Booster!", width / 2, 100);
+            textSize(30);
+            text("Made by The Space Dude", 500, 200);
+            homeRocket.position.y = 20 * sin(TWO_PI * frameCount / 100);
+            pushMatrix();
+            translate(500, 340);
+            homeRocket.display();
+            popMatrix();
+            playButton.draw();
+            intructionsButton.draw();
+            mobileButton.draw();
+          };
+          var scene2 = function() {
+            currentScene = 2;
+            background(0, 200, 255);
+            noStroke();
+            fill(0, 0, 255);
+            rect(500, 585, width, 30);
+            fill(0, 255, 0);
+            ellipse(0, 600, 1000, 100);
+            superHeavy.applyForce(forces.gravity(superHeavy));
+            superHeavy.applyForce(forces.drag(superHeavy));
+            if (keys[68] || keys[RIGHT]) {
+              superHeavy.pitchRight();
+            }
+            if (keys[65] || keys[LEFT]) {
+              superHeavy.pitchLeft();
+            }
+            superHeavy.update();
+            if (keys[87] || keys[UP]) {
+              superHeavy.applyForce(forces.thrust(superHeavy));
+              for (var i = 0; i < 5; i++) {
+                pushMatrix();
+                translate(superHeavy.position.x, superHeavy.position.y);
+                rotate(superHeavy.angle);
+                exhaust.addParticle();
+                exhaust.run();
+                popMatrix();
+              }
+              superHeavy.mass -= 0.01;
+            }
+            superHeavy.display();
+            fill(255, 255, 255, 220);
+            ellipse(cloudX1, 150, 200, 150);
+            ellipse(cloudX1 - 100, 170, 100, 100);
+            ellipse(cloudX1 + 100, 180, 100, 80);
+            ellipse(cloudX2, 150, 200, 150);
+            ellipse(cloudX2 - 100, 170, 100, 100);
+            ellipse(cloudX2 + 100, 180, 100, 80);
+            ellipse(cloudX3, 150, 200, 150);
+            ellipse(cloudX3 - 100, 170, 100, 100);
+            ellipse(cloudX3 + 100, 180, 100, 80);
+            fill(0, 0, 0);
+            rect(100, 475, 20, 150);
+            rect(135, 425, 50, 10);
+            stroke(0, 0, 0);
+            fill(255, 255, 255);
+            rect(900, 275, 50, 500);
+            fill(255, 255, 0);
+            rect(900, 525 - (superHeavy.mass - 5) * 100 / 2, 50, (superHeavy.mass - 5) * 100);
+            fill(0, 0, 0);
+            text("Fuel", 900, 550);
+            exitButton.draw();
+            if (mobileButton.message === "Mobile: On") {
+              turnRightButton.draw();
+              turnLeftButton.draw();
+              thrustButton.draw();
+            }
+          };
+          var scene3 = function() {
+            currentScene = 3;
+            background(0, 200, 255);
+            textAlign(CENTER, CENTER);
+            textSize(60);
+            fill(0, 0, 0);
+            text("No one said\nrocket science was that easy.", 500, 150);
+            tryAgainButton.draw();
+            quitButton.draw();
+          };
+          var scene4 = function() {
+            currentScene = 4;
+            background(0, 200, 255);
+            textSize(60);
+            textAlign(CENTER, CENTER);
+            text("Congrats!\nYou have became the next\nElon Musk!", 500, 150);
+            playAgainButton.draw();
+            homeButton.draw();
+          };
+          var scene5 = function() {
+            currentScene = 5;
+            background(0, 200, 255);
+            textSize(60);
+            text("Intructions", 500, 150);
+            textSize(30);
+            text("Use W or Up Arrow to ignite the engine.\nUse A and D or Left and Right Arrow to rotate the booster.\nYour fuel will decrease as you thrust upwards.\nYour mass decreases when your fuel decreases.\n Your objective is to catch the Super Heavy Booster with the launch tower.", 500, 300);
+            backButton.draw();
+          };
+          mouseClicked = function() {
+            if (currentScene === 1) {
+              resetSuperHeavy();
+              if (playButton.mouseOver()) {
+                scene2();
+              } else if (intructionsButton.mouseOver()) {
+                scene5();
+              } else if (mobileButton.mouseOver()) {
+                if (mobileButton.message === "Mobile: Off") {
+                  mobileButton.message = "Mobile: On";
+                } else {
+                  mobileButton.message = "Mobile: Off";
+                }
+              }
+            } else if (currentScene === 2) {
+              if (exitButton.mouseOver()) {
+                scene1();
+              }
+            } else if (currentScene === 3) {
+              resetSuperHeavy();
+              if (tryAgainButton.mouseOver()) {
+                scene2();
+              } else if (quitButton.mouseOver()) {
+                scene1();
+              }
+            } else if (currentScene === 4) {
+              resetSuperHeavy();
+              if (playAgainButton.mouseOver()) {
+                scene2();
+              } else if (homeButton.mouseOver()) {
+                scene1();
+              }
+            } else {
+              if (backButton.mouseOver()) {
+                scene1();
+              }
+            }
+          };
+          draw = function() {
+            if (currentScene === 1) {
+              scene1();
+            } else if (currentScene === 2) {
+              if (superHeavy.checkEdges() || superHeavy.mass <= 5) {
+                scene3();
+              } else if (superHeavy.checkCaptured()) {
+                scene4();
+              } else {
+                scene2();
+              }
+            }
+          };
+          scene1();
+        }
+      };
+      var canvas = document.getElementById("catch-sim");
+      var processingInstance = new Processing(canvas, programCode);
+    </script>
+  </body>
+</html>
