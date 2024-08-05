@@ -22,7 +22,7 @@
       <button class="details" id="chopstick-catch">Show Game</button>
       <div id="chopstick-catch-game">
         <p>Inspired by the IFT-5 flight plan, this game simulates the Super Heavy booster catch.</p>
-        <canvas id="catch-sim"></canvas>
+        <canvas id="catch-sim" width="70%"></canvas>
       </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -48,7 +48,7 @@
     <script>
       var programCode = function(processingInstance) {
         with (processingInstance) {
-          size(1000, 600);
+          size(1000, 600)
           frameRate(60);
           var Particle = function(position) {
             this.acceleration = new PVector(0, 1);
@@ -184,20 +184,18 @@
           var playButton = new Button(500, 525, 200, 100, "Play!", 50);
           var mobileButton = new Button(800, 400, 300, 75, "Mobile: Off", 45);
           var exitButton = new Button(50, 50, 75, 75, "Exit", 30);
-          var turnRightButton = new Button(600, 525, 75, 75, "Right", 30);
-          var turnLeftButton = new Button(500, 525, 75, 75, "Left", 30);
-          var thrustButton = new Button(550, 425, 75, 75, "Thrust", 25);
           var tryAgainButton = new Button(500, 350, 300, 75, "Try Again", 45);
           var quitButton = new Button(500, 450, 300, 75, "Quit", 45);
           var playAgainButton = new Button(500, 350, 300, 75, "Play Again", 45);
           var homeButton = new Button(500, 450, 300, 75, "Home", 45);
           var intructionsButton = new Button(200, 400, 300, 75, "Instructions", 45);
-          var backButton = new Button(500, 450, 300, 75, "Back", 45);
+          var backButton = new Button(500, 500, 300, 75, "Back", 45);
           var homeRocket = new Booster(0, 0, 30, 200, 0);
           var superHeavy = new Booster(750, 0, 15, 100, 0.2);
           var forces = new Force();
           var exhaust = new ParticleSystem(new PVector(0, 50));
           var currentScene;
+          var mobile = false;
           var resetSuperHeavy = function() {
             superHeavy.position.set(750, 0);
             superHeavy.velocity.set(-1.5, 7.5);
@@ -213,39 +211,23 @@
           var cloudX3 = random(width);
           var keys = [];
           keyPressed = function() {
-            if (mobileButton.message === "Mobile: Off") {
+            if (!mobile) {
               keys[keyCode] = true;
             }
           };
           keyReleased = function() {
-            if (mobileButton.message === "Mobile: Off") {
+            if (!mobile) {
               keys[keyCode] = false;
             }
           };
-          mousePressed = function() {
-            if (mobileButton.message === "Mobile: On") {
-              if (turnRightButton.mouseOver()) {
-                keys[RIGHT] = true;
-              }
-              if (turnLeftButton.mouseOver()) {
-                keys[LEFT] = true;
-              }
-              if (thrustButton.mouseOver()) {
-                keys[UP] = true;
-              }
+          mouseDragged = function() {
+            if (mobile) {
+              keys[UP] = true;
             }
           };
           mouseReleased = function() {
-            if (mobileButton.message === "Mobile: On") {
-              if (turnRightButton.mouseOver()) {
-                keys[RIGHT] = false;
-              }
-              if (turnLeftButton.mouseOver()) {
-                keys[LEFT] = false;
-              }
-              if (thrustButton.mouseOver()) {
-                keys[UP] = false;
-              }
+            if (mobile) {
+              keys[UP] = false;
             }
           };
           var scene1 = function() {
@@ -295,6 +277,10 @@
               }
               superHeavy.mass -= 0.01;
             }
+            var mouse = new PVector(-mouseX, -mouseY);
+            if (mobile) {
+              superHeavy.angle = mouse.heading() * 10;
+            }
             superHeavy.display();
             fill(255, 255, 255, 220);
             ellipse(cloudX1, 150, 200, 150);
@@ -317,11 +303,6 @@
             fill(0, 0, 0);
             text("Fuel", 900, 550);
             exitButton.draw();
-            if (mobileButton.message === "Mobile: On") {
-              turnRightButton.draw();
-              turnLeftButton.draw();
-              thrustButton.draw();
-            }
           };
           var scene3 = function() {
             currentScene = 3;
@@ -346,9 +327,9 @@
             currentScene = 5;
             background(0, 200, 255);
             textSize(60);
-            text("Intructions", 500, 150);
-            textSize(30);
-            text("Use W or Up Arrow to ignite the engine.\nUse A and D or Left and Right Arrow to rotate the booster.\nYour fuel will decrease as you thrust upwards.\nYour mass decreases when your fuel decreases.\n Your objective is to catch the Super Heavy Booster with the launch tower.", 500, 300);
+            text("Intructions", 500, 100);
+            textSize(25);
+            text("Use W or Up Arrow to ignite the engine.\nUse A and D or Left and Right Arrow to rotate the booster.\nYour fuel will decrease as you thrust upwards.\nYour mass decreases when your fuel decreases.\n Your objective is to catch the Super Heavy Booster with the launch tower.\nIf you're play on a mobile device, turn on the mobile setting.\nTo play on mobile, drag your finger on the screen and the booster will follow.", 500, 300);
             backButton.draw();
           };
           mouseClicked = function() {
@@ -359,10 +340,12 @@
               } else if (intructionsButton.mouseOver()) {
                 scene5();
               } else if (mobileButton.mouseOver()) {
-                if (mobileButton.message === "Mobile: Off") {
+                if (!mobile) {
                   mobileButton.message = "Mobile: On";
+                  mobile = true;
                 } else {
                   mobileButton.message = "Mobile: Off";
+                  mobile = false;
                 }
               }
             } else if (currentScene === 2) {
