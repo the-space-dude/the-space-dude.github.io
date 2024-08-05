@@ -1,0 +1,70 @@
+body {
+  background-color: rgb(150, 150, 150);
+}
+
+.heading {
+  background-color: black;
+  font-family: "Helvetica", sans-serif;
+  padding: 10px;
+  height: 100px;
+}
+
+h1 {
+  font-size: 60px;
+  margin: 0px;
+  color: white;
+}
+
+.links-bar {
+  color: white;
+}
+
+.links {
+  color: white;
+  text-decoration: none;
+}
+.links:hover, .links:active, .links:focus {
+  background-color: rgb(100, 100, 100);
+}
+
+.highlighted-links {
+  text-decoration: none;
+  color: blue;
+}
+
+.highlighted-links:hover, .highlighted-links:active, .highlighted-links:focus, .highlighted-links:visited {
+  color: rgb(0, 100, 255);
+}
+
+.home-img {
+  margin-top: 10px;
+  margin-bottom: 50px;
+}
+
+.content {
+  margin-bottom: 10px;
+  background-color: rgb(50, 50, 50);
+  color: white;
+  font-family: "Courier", monospace;
+  padding: 10px;
+}
+
+h2 {
+  margin: 0px;
+  font-family: "Helvetica", sans-serif;
+  font-size: 30px;
+}
+
+button {
+  border: 1px solid black;
+}
+
+button:hover, button:active, button:focus {
+  background-color: rgb(200, 200, 200);
+}
+
+.details {
+  float: right;
+  position: relative;
+  bottom: 27px;
+}
