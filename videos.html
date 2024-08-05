@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Channel Updates</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+      #note {
+        font-style: italic;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="heading">
+      <h1>The Space Dude</h1>
+      <p class="links-bar">
+        <a class="links" href="index.html">Back to Home Page</a>
+      </p>
+    </div>
+    <img class="home-img" src="https://variety.com/wp-content/uploads/2020/06/youtube-logo.png?w=999" alt="YouTube Logo" width="100%" height="100%">
+    <div class="content">
+      <h2>Channel Updates</h2>
+      <button class="details" id="video-button">Hide Details</button>
+      <p id="videos">
+        <strong>August 4, 2024</strong><br>
+        I fixed the GPU problem. My computer has a AMD GPU, but I set Blender to use a NVIDIA GPU. I fixed the setting mistake, and I finish rendering my 3D animation for my video.<br><br>
+        <strong>July 31, 2024:</strong><br>
+        My next video includes a 1,000-framed 3D animation. While I was rendering it (which in theory would take 10 hours), my GPU broke down and my computer crashed. So I'm working on a solution. Currently, I'm making a bunch of 100 framed animations to edit together as a big animation.
+      </p>
+    </div>
+    <div class="content">
+      <h2>Next YouTube Video</h2>
+      <button class="details" id="next-vid-button">Hide Details</button>
+      <div id="next-vid">
+        <p id="note">Note: The following data may not be accurate, seeing plans could change</p>
+        <table>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Release Date</th>
+          </tr>
+          <tr>
+            <td>I Sent a Spaceplane to the Moon!</td>
+            <td>
+              Sending a crew of four on the Mun with an SSTO, 2 relays, a base, a rover, a space station, an asteroid impactor, and a lander
+            </td>
+            <td>Friday, August 9, 2024, 3 PM PT</td>
+          </tr>
+          <tr>
+            <td>Not determined</td>
+            <td>Not determined</td>
+            <td>Not determined</td>
+          </tr>
+          <tr>
+            <td>Not determined</td>
+            <td>Not determined</td>
+            <td>Not determined</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+      $(".heading").hide();
+      $(".links-bar").hide();
+      $(".home-img").hide();
+      $(".home-img").fadeIn(1000);
+      $(".heading").slideDown(500, function() {
+        $(".links-bar").fadeIn(500);
+      });
+      $("#video-button").on("click", function() {
+        $("#videos").slideToggle(1000);
+        if (this.textContent === "Hide Details") {
+          this.innerHTML = "Show Details";
+        } else {
+          this.innerHTML = "Hide Details"
+        }
+      });
+      $("#next-vid-button").on("click", function() {
+        $("#next-vid").slideToggle(1000);
+        if (this.textContent === "Hide Details") {
+          this.innerHTML = "Show Details";
+        } else {
+          this.innerHTML = "Hide Details";
+        }
+      });
+    </script>
+  </body>
+</html>
